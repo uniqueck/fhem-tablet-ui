@@ -397,14 +397,6 @@ this.getPart = function (s,p) {
 	}
 };
 
-this.hasReading  = function(paraname) {
-    for (var devname in deviceStates){
-        var params = deviceStates[devname];
-        return ( params && params[paraname] );
-    }
-    return false;
-}
-
 this.getDeviceValue = function (device, src) {
     var param = getParameter(device, src);
     return ( param ) ? param.val : null;
