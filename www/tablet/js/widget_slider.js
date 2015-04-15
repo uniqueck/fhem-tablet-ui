@@ -45,15 +45,10 @@ var widget_slider = {
   },
   update: function (dev,par) {
 
-	var deviceElements;
-	if ( dev == '*' )
-		deviceElements= _slider.elements;
-	else
-   		deviceElements= _slider.elements.filter('div[data-device="'+dev+'"]');
-
+    var deviceElements= _slider.elements.filter('div[data-device="'+dev+'"]');
 	deviceElements.each(function(index) {
 
-	 	if ( $(this).data('get')==par || par =='*'){
+        if ( $(this).data('get')==par){
 
 			var state = getDeviceValue( $(this), 'get' );
 			if (state) {

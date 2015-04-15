@@ -1,0 +1,14 @@
+body {
+    background-color: #ffffff;
+    color: #222222;
+}
+
+.gridster ul li {
+    background-color:#eee;
+    overflow: hidden;
+    text-align: center;
+}
+
+ul, ol {
+    list-style: none;
+}
