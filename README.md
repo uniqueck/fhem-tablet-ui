@@ -82,7 +82,9 @@ Currently there are more then 20 types of widgets in the base installation.
 - **datetimepicker** : select a date and time value from calendar
 - **eventmonitor**: for debugging - shows all events which normal widgets 'see'
 - **chart** : multistyle chart for multiple values (reads directly from FHEM log file)
+- **highchart** : multistyle chart for multiple values
 - **checkbox** : Toggle any command to FHEM (e.g. on / off)
+- **range** : vertical bar graph to show a values range between min/max value and high/low limits with different colors
 
 More plugins are available [here](https://github.com/nesges/Widgets-for-fhem-tablet-ui)
 
@@ -130,17 +132,17 @@ dual state notation
 - **data-get-off**  : value for OFF status to get. (default 'off')
 - **data-icon**     			: name of the font-awesome icon. (default: fa-lightbulb-o)
 - **data-background-icon** 		: name of the font-awesome icon for background (default 'fa-circle')
-- **data-on-background-color** 	: color of ON state (default '#aa6900')
-- **data-off-background-color** : color of OFF state (default '#505050')
-- **data-on-color** 			: color of ON state (default '#aa6900')
-- **data-off-color**			: color of Off state (default '#505050')
+- **data-on-background-color**          : color for ON state or DEVICE:READING for dynamic setting (default '#aa6900')
+- **data-off-background-color**         : color for OFF state or DEVICE:READING for dynamic setting (default '#505050')
+- **data-on-color** 			: color for ON state or DEVICE:READING for dynamic setting (default '#aa6900')
+- **data-off-color**			: color for Off state or DEVICE:READING for dynamic setting (default '#505050')
 
 multi state notation   
 - **data-states**   			: array of states 
 - **data-icons**    			: array of icons related to the data-states array 
-- **data-background-icons** 	: array of background icons related to the data-states array 
-- **data-colors**				: array of colors related to the data-states array
-- **data-background-colors**	: array of background colors related to the data-states array
+- **data-background-icons**             : array of background icons related to the data-states array
+- **data-colors**                       : array of colors related to the data-states array
+- **data-background-colors**            : array of background colors related to the data-states array
 - **class**     			: readonly, 
 
 data-get-on and data-get-off accept also RegEx values. e.g. data-get-on="[0-9]{1,3}|on" means set switch on if STATE is a numeric value or 'on'.
@@ -157,17 +159,17 @@ dual state notation
 - **data-get-off**  			: value for OFF status to get. (default 'closed')
 - **data-icon**     			: name of the font-awesome icon.  (default 'ftui-window')
 - **data-background-icon** 		: name of the font-awesome icon for background (default '')
-- **data-on-background-color** 	: color of ON state (default '#aa6900')
-- **data-off-background-color** : color of OFF state (default '#505050')
-- **data-on-color** 			: color of ON state (default '#aa6900')
-- **data-off-color**			: color of Off state (default '#505050')
+- **data-on-background-color**          : fix color attribute for ON state or DEVICE:READING for dynamic setting (default '#aa6900')
+- **data-off-background-color**         : fix color attribute for OFF state or DEVICE:READING for dynamic setting (default '#505050')
+- **data-on-color** 			: fix color attribute for ON state or DEVICE:READING for dynamic setting (default '#aa6900')
+- **data-off-color**			: fix color attribute for Off state or DEVICE:READING for dynamic setting (default '#505050')
 
 multi state notation   
 - **data-states**   			: array of states 
 - **data-icons**    			: array of icons related to the data-states array 
-- **data-background-icons** 	: array of icons related to the data-states array 
-- **data-colors**				: array of colors related to the data-states array
-- **data-background-colors**	: array of colors related to the data-states array
+- **data-background-icons**             : array of icons related to the data-states array
+- **data-colors**                       : array of colors related to the data-states array
+- **data-background-colors**            : array of colors related to the data-states array
 
 data-get-on,data-get-off and data-states accept also RegEx values.
 The value for one icon can also contain an additional animatation CSS name, e.g. "fa-exclamation-triangle fa-blink" for a blinking symbol
@@ -179,7 +181,7 @@ See [examples](#symbol) of Symbol
 - **data-fix**  : keeping a specified number of decimals. (default '-1' -> non-numeric)						 
 - **data-part** : part number of the space separated value to show or an RegEx
 - **data-colors** : a array of color values to affect the colour of the label according to the limit value 
-- **data-limits-get**  : name of the DEVICE:Reading to colorize the label (default: data-device:data-get)	
+- **data-limits-get**  : name of the DEVICE:Reading to colorize the label (default: data-device:data-get)
 - **data-limits** : a array of numeric or RegEx values to affect the colour of the label
 - **data-limits-part**  : part number of the space separated value to show or an RegEx (default '-1' -> all)	
 - **data-unit** : add a unit after a numeric value. use encoded strings e.g. "%B0C%0A"
@@ -230,6 +232,8 @@ See [examples](#label) of Label
 - **data-font**  :  (default '"Helvetica Neue", "Helvetica", "Open Sans", "Arial", sans-serif');
 - **data-font-weight**
 - **class**		: mini, small, large, readonly
+
+![](http://knowthelist.github.io/fhem-tablet-ui/knob.png)
 
 ####Thermostat widgets
 all parameters from knob widget plus following additional parameters
@@ -339,6 +343,9 @@ $v is a placeholder for the numeric value, it will be replaced be the real value
 - **data-size**     : width of the image in px or %, the height scales proportionally. (default: 50%)
 - **data-url**      : URL of the image to show 
 - **data-refresh**  : Interval in seconds for image refresh for usage together with data-url (default: 900)
+- **data-opacity**  : opacity of the image 0-1 (default 0.8)
+- **data-height**   : height of the image (default 'auto')
+- **data-width**    : width of the image  (default 100%)
 - **class**			: nocache
 
 If 'data-url' is not set, then the URL for image src is built from: data-path + valueof data-get + data-suffix
@@ -352,9 +359,11 @@ Use data-url + data-refresh or data-device + data-get, not both.
 ####CircleMenu widgets
 - **data-item-diameter** : diameter of the circle (default 52)
 - **data-circle-radius** : radius of each item, in pixel (default 70)
+- **data-border**        : style of border - 'round','square' (default 'round')
+- **data-item-width**    : fixe size for width in px (default value of data-item-diameter)
+- **data-item-height**   : fixe size for height in px (default value of data-item-diameter)
 - **data-direction**     : position of the items in relation to the center (default full). Options are: top | right | bottom | left | top-right | top-left | bottom-right | bottom-left | top-half | right-half | bottom-half | left-half | full | vertical | horizontal
-- **data-close-after**   : closing time of the circle-menu (default: (item-count + 1s) or a minimum of 4s)
-- **class**		         : keepopen
+- **class**		 : keepopen
 
 ####Playstream widgets
 - **data-url**      : URL of the Radio stream
@@ -478,7 +487,47 @@ Place this widget for debugging purpose within a normal page and klick it to see
 All parameters like Switch widgets
 
 - **class**             small, large
+
+![](http://knowthelist.github.io/fhem-tablet-ui/Checkboxes.png)
+
+####Range widgets
+- **data-high**       : name of the reading to get the high value from FHEM (default 'STATE')
+- **data-low**        : name of the reading to get the low value from FHEM  (default '')
+- **data-max**        : value for the maximal value on the scale (default '30')
+- **data-min**        : value for the minimal value on the scale (default '-10')
+- **data-limit-high** : value for the upper limit, where the range bar changes the color (default '20')
+- **data-limit-low**  : value for the lower limit, where the range bar changes the color (default '0')
+- **data-color**      : rgb value or color name for the normal range of the value bar (default 'orange')
+- **data-color-high** : rgb value or color name for the upper range of the value bar (default 'red')
+- **data-color-low**  : rgb value or color name for the lower range of the value bar (default 'blue')
+- **data-width**      : fixe size for width (default '8px')
+- **data-height**     : fixe size for height (default '220px')
+
+- **class**           : nolabels
+
+See [examples](#range) of Range
   
+####Colorwheel widgets
+- **data-get**         : name of the reading where to get the rgb color value from (default 'STATE')
+- **data-set**         : (default '')
+- **data-cmd**         : (default 'set')
+- **data-width**       : (default 150)
+- **class**            : roundIndicator,barIndicator,lineIndicator
+
+####Link widgets
+- **data-color**                   : rgb value or color name for the text and icon (default 'orange')
+- **data-background-color**        : rgb value or color name for the back (default null)
+- **data-border-color**            : rgb value or color name for the border (default null)
+- **data-icon-left**               : name of the left icon   (default null)
+- **data-icon-right**              : name of the right icon  (default null)
+- **data-width**                   : width of the link  (default 'auto')
+- **data-height**                  : height of the link (default 'auto')
+- **data-text-align**              : alignment of text ['left','center','right']  (default 'center')
+- **data-active-pattern**          : RegEx to define active state  (default null)
+- **data-active-color**            : rgb value or color name for the text and icon in case active-pattern is matching (default same as data-color)
+- **data-active-background-color** : rgb value or color name for the back in case active-pattern is matching (default same as data-background-color)
+- **data-active-border-color**     : rgb value or color name for the border in case active-pattern is matching (default same as data-border-color)
+
 Format
 -------
 The layout, look and behavior can be influenced by the class attribute.
@@ -514,7 +563,7 @@ not all widgets support all classes
 - circleborder          : draws a round border around labels
 
 Positioning:
-- container		: new box or new row
+- row                   : new row
 - col-x-y 		: new column with x/y of width (col-1-3,col-2-3,col-1-2,col-1-4,col-1-8,col-1-5,col-2-5,col-3-5,col-4-5)
 - inline		: positioning elements in a row, no line break
 - top-space     : 15px extra on top (top-space-2x -> 30px; top-space-3x -> 45px)
@@ -524,6 +573,7 @@ Positioning:
 - centered		: horizontal centered
 - left-align	: align text left
 - right-align	: align text right
+- bottom        : align text at the bottom of
 - wider			: 15px extra space for the widget all around 
 - narrow		: shorter distant to the widget above 
 - fullsize		: 100% in width and height
@@ -600,6 +650,8 @@ Add this to adjust the size of the Gridster margin
 Examples
 -------
 
+See Live-Demos for widgets here: http://knowthelist.github.io/fhem/tablet/demo_widgets.html
+
 **Position grid** 
 
 Two main boxes left and right. The first row of the left box has 3 columns. The second row has 2 columns.  
@@ -607,9 +659,9 @@ Two main boxes left and right. The first row of the left box has 3 columns. The 
 ```html
 <li data-row="1" data-col="4" data-sizex="5" data-sizey="3">
    <header>EXAMPLE3</header>
-   <div class="container top-space">
+   <div class="row top-space">
         <div class="col-1-2">
-            <div class="container top-space">
+            <div class="row top-space">
                 <div class="col-1-3">
                     <div data-type="switch" data-device="Switch1" data-icon="fa-music"></div>
                     <div data-type="label" class="">Station1</div>
@@ -623,7 +675,7 @@ Two main boxes left and right. The first row of the left box has 3 columns. The 
                     <div data-type="label" class="">Station3</div>
                 </div>
              </div>
-             <div class="container top-space">
+             <div class="row top-space">
                  <div class="col-1-2">
                      <div data-type="symbol" data-device="Switch1" data-icon="fa-battery-4"></div>
                      <div data-type="label" class="">Value1</div>
@@ -867,9 +919,9 @@ The countdown time is auto detected via the on-for-timer command. A other value 
 
 **Example** for a battery level control with RegEx
 ```html
-<div data-type="symbol" data-device="BadHeizung" data-get="batteryLevel"
+<div data-type="symbol" data-device="WohnzimmerHeizung" data-get="batteryLevel"
     data-states='["3.[0-9]","2.[789]","2.[456]","2.[123]","((2.0)|([01].[0-9]))"]'
-	data-icons='["oa-measure_battery_100","oa-measure_battery_75","oa-measure_battery_50","oa-measure_battery_25","oa-measure_battery_0"]'
+        data-icons='["fa-battery-4","fa-battery-3","fa-battery-2","fa-battery-1","fa-battery-0"]'
     data-colors='["#505050","#505050","#505050","#ad3333","#ad3333"]'>
 </div>
 ```       
@@ -1099,7 +1151,7 @@ Multiple pagetabs in a template file: menu.html
 
 
 ###Rotor
-**Example** for a rotor widget, which switches between to days of weather forecast 
+**Example** for a rotor widget, which switches between two days of weather forecast
 ```html
 <div data-type="rotor" class="fade">
  <ul>
@@ -1337,7 +1389,7 @@ Create a mini chart in the UI which opens a dialog with the full size of the cha
 </div>
 ```
 
-Datetimepicker
+###Datetimepicker
 -------
 Create a Label in the UI which opens a datetime picker.
 
@@ -1360,6 +1412,21 @@ Create a Label in the UI which opens a time picker.
 ```
 
 ![](http://knowthelist.github.io/fhem-tablet-ui/timepicker.png)
+
+###Range
+-------
+
+Example of range widgets to visualize max and min temperature value as a range bar. Temperatures below zero are shown in blue, values above 2 become red.
+
+```html
+<div class="container">
+    <div data-type="range" data-device="AgroWeather" data-low="fc0_tempMin" data-high="fc0_tempMax" data-max="5" data-min="-5" data-limit-low="0" data-limit-high="2" class="inline left-space"></div>
+    <div data-type="range" data-device="AgroWeather" data-low="fc1_tempMin" data-high="fc1_tempMax" data-max="5" data-min="-5" data-limit-low="0" data-limit-high="2" class="inline left-space nolabels"></div>
+    <div data-type="range" data-device="AgroWeather" data-low="fc2_tempMin" data-high="fc2_tempMax" data-max="5" data-min="-5" data-limit-low="0" data-limit-high="2" class="inline left-space nolabels"></div>
+</div>
+```
+
+![](http://knowthelist.github.io/fhem-tablet-ui/widget_range.png)
 
 
 Specials
@@ -1398,7 +1465,7 @@ I'm unable to work now and I need to buy a new one.
 Update 2015-11-04: my old 2007 MacBook runs again with the previous HDD, but totaly slow and out of space.
 
 * Goal  : 13'' MacBook Pro 1445€ 
-* Status: 200€ (many thanks to all donators :-)
+* Status: 467€ (32% - 03.12.2015 -> many thanks to all donators :-)
 
 
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PD4C2XM2VTD9A"><img src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" alt="[paypal]" /></a>

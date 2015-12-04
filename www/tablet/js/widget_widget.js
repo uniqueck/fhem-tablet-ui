@@ -61,7 +61,39 @@ $.fn.filterData = function(key, value) {
         return $(this).data(key) == value;
     });
 };
+$.fn.filterDeviceReading = function(key, device, param) {
+    return this.filter(function() {
+        return  ( $(this).data(key) === param && $(this).data('device') === device )
+                || ($(this).data(key) === device + ':' + param);
+    });
+};
 $.fn.isValidData = function(key) {
     return typeof $(this).data(key) != 'undefined';
 };
-
+$.fn.initData = function(key,value) {
+    $(this).data(key, $(this).isValidData(key) ? $(this).data(key) : value);
+    return $(this);
+};
+$.fn.mappedColor = function(key) {
+    return getStyle('.'+$(this).data(key),'color') || $(this).data(key);
+};
+$.fn.isDeviceReading = function(key) {
+    return $(this).data(key).match(/:/);
+};
+$.fn.addReading = function(key) {
+    initReadingsArray($(this).data(key));
+};
+$.fn.getReading = function (key) {
+    var devname = $(this).data('device'),
+        paraname = $(this).data(key);
+    if(paraname && paraname.match(/:/)) {
+        var temp = paraname.split(':');
+        devname = temp[0];
+        paraname = temp[1];
+    }
+    if (devname && devname.length>0){
+        var params = deviceStates[devname];
+        return ( params && params[paraname] ) ? params[paraname] : {};
+    }
+    return {};
+}
